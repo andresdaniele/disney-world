@@ -41,7 +41,7 @@ public class PeliculaSerieEntity {
         cascade = {
             CascadeType.PERSIST,
             CascadeType.MERGE
-            })                                                //Este lo considero el owning side de la relacion.
+            })                                                //Esta entidad la considero el owning side de la relacion con genero.
     @JoinColumn(name = "id_genero")                           //Mi tabla pelicula_o_serie va a tener una columna con Fk el
     private GeneroEntity genero;                              //id del genero al cual pertenece.
 

@@ -31,7 +31,7 @@ public class PersonajeEntity {
             joinColumns = @JoinColumn(name = "personaje_id"),             //lado de la tabla owning side.
             inverseJoinColumns = @JoinColumn(name = "pelicula_id")        //Inverso del owning side.
     )
-    private Set<PeliculaSerieEntity> peliculasSeries;                     //Personaje es de "owning side".
+    private Set<PeliculaSerieEntity> peliculasSeries;                     //Esta entidad es el "owning side".
 
 
 }
