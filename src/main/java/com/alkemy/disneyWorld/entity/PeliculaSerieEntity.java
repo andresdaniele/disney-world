@@ -30,19 +30,19 @@ public class PeliculaSerieEntity {
 
     @ManyToMany(
             mappedBy = "peliculasSeries",
-            cascade = {CascadeType.PERSIST, CascadeType.MERGE}
-    )
+            cascade = {                                               //PERSIST: las operaciones en la entidad padre se propagan tambien a la hija.
+                    CascadeType.PERSIST,
+                    CascadeType.MERGE                                 //MERGE: al modificar un objeto de la base de dato, esta actualizcion persiste
+            })                                                        //a las demas entides relacionadas.
     private List<PersonajeEntity> personajes;
 
-    /*
-    //La relacoion entre peliculas y generos ManyToOne bidireccional
 
     @ManyToOne(
         cascade = {
             CascadeType.PERSIST,
             CascadeType.MERGE
-            })                                  //Este lo considero el owning side de la relacion.
-    @JoinColumn(name = "id_genero")             //Mi tabla pelicula_o_serie va a tener una columna con Fk el
-    private GeneroEntity genero;                //id del genero al cual pertenece
-     */
+            })                                                //Este lo considero el owning side de la relacion.
+    @JoinColumn(name = "id_genero")                           //Mi tabla pelicula_o_serie va a tener una columna con Fk el
+    private GeneroEntity genero;                              //id del genero al cual pertenece.
+
 }

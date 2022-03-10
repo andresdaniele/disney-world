@@ -27,11 +27,11 @@ public class PersonajeEntity {
                     CascadeType.MERGE
             })
     @JoinTable(
-            name = "pelicula_personaje",                                  //crea tabla intermedia que relaciona los id de cada entidad
-            joinColumns = @JoinColumn(name = "personaje_id"),             //lado de la tabla owning side
-            inverseJoinColumns = @JoinColumn(name = "pelicula_id")                              //inverso del owning side
+            name = "pelicula_personaje",                                  //Crea tabla intermedia que relaciona los id de cada entidad
+            joinColumns = @JoinColumn(name = "personaje_id"),             //lado de la tabla owning side.
+            inverseJoinColumns = @JoinColumn(name = "pelicula_id")        //Inverso del owning side.
     )
-    private Set<PeliculaSerieEntity> peliculasSeries;                     //Personaje es de "owning side"
+    private Set<PeliculaSerieEntity> peliculasSeries;                     //Personaje es de "owning side".
 
 
 }
