@@ -4,6 +4,7 @@ import lombok.Getter;
 import lombok.Setter;
 
 import javax.persistence.*;
+import java.util.HashSet;
 import java.util.Set;
 
 @Entity
@@ -31,7 +32,7 @@ public class PersonajeEntity {
             joinColumns = @JoinColumn(name = "personaje_id"),             //lado de la tabla owning side
             inverseJoinColumns = @JoinColumn(name = "pelicula_id")                              //inverso del owning side
     )
-    private Set<PeliculaSerieEntity> peliculasSeries;                     //Personaje es de "owning side"
+    private Set<PeliculaSerieEntity> peliculasSeries =  new HashSet<>();                     //Personaje es el "owning side"
 
 
 }

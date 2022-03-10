@@ -4,6 +4,7 @@ import lombok.Getter;
 import lombok.Setter;
 
 import javax.persistence.*;
+import java.util.ArrayList;
 import java.util.List;
 
 @Entity
@@ -17,25 +18,22 @@ public class GeneroEntity {
     private Long id;
 
     private String nombre;
+
     private String imagen;
 
 
 
     //La relacion entre genero y peliculas @OnetoMany unidireccional:
 
-    @OneToMany(
-            cascade = {                                                   //PERSIST: las operaciones en la entidad padre se propagan tambien a la hija
-                    CascadeType.PERSIST,                                  //MERGE: al modificar un objeto de la base de dato, esta actualizcion persiste
-                    CascadeType.MERGE                                     //a las demas entides relacionadas
-            })
+    @OneToMany(cascade = {CascadeType.PERSIST, CascadeType.MERGE})
     @JoinColumn(name = "genero_id")                                        //una una relacion @OneToMany unidireccional si no especifico el joincolumn,
                                                                           // jpa crea una tabla intermedia para relacionar los ids y usa exceso de queeries
-    private List<PeliculaSerieEntity> peliculasSeries;
+    private List<PeliculaSerieEntity> peliculasSeries = new ArrayList<>();
 
 
 
 /*
-    //La relacion entre genero y peliculas @OnetoMany bidireccional:
+    //Relacion entre genero y peliculas @OnetoMany bidireccional:
 
     @OneToMany(fetch = FetchType.EAGER, mappedBy = "genero")               // Fetch en eager dado que la lista de peliculas probablemente no sea muy larga
     private List<PeliculaSerieEntity> peliculasSeries;                     // y no es necesario recibir los datos on-demand dado que con pocos datos la

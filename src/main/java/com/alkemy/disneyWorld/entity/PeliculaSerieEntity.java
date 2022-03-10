@@ -5,6 +5,7 @@ import lombok.Setter;
 
 import javax.persistence.*;
 import java.time.LocalDate;
+import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
 
@@ -32,10 +33,10 @@ public class PeliculaSerieEntity {
             mappedBy = "peliculasSeries",
             cascade = {CascadeType.PERSIST, CascadeType.MERGE}
     )
-    private List<PersonajeEntity> personajes;
+    private Set<PersonajeEntity> personajes = new HashSet<>();
 
     /*
-    //La relacoion entre peliculas y generos ManyToOne bidireccional
+    //Relacion entre peliculas y generos ManyToOne bidireccional
 
     @ManyToOne(
         cascade = {
