@@ -2,16 +2,18 @@ package com.alkemy.disneyWorld.entity;
 
 import lombok.Getter;
 import lombok.Setter;
+import org.hibernate.annotations.SQLDelete;
+import org.hibernate.annotations.Where;
 
 import javax.persistence.*;
-import java.util.HashSet;
 import java.util.Set;
 
 @Entity
 @Table(name = "personaje")
 @Getter
 @Setter
-
+@SQLDelete(sql = "UPDATE personaje SET deleted = true WHERE id=?" )
+@Where(clause = "deleted=false")
 public class PersonajeEntity {
 
     @Id
@@ -21,6 +23,7 @@ public class PersonajeEntity {
     private Integer edad;
     private Integer peso; //kg
     private String historia;
+    private boolean deleted = Boolean.FALSE;
 
     @ManyToMany(
             cascade = {
@@ -28,11 +31,11 @@ public class PersonajeEntity {
                     CascadeType.MERGE
             })
     @JoinTable(
-            name = "pelicula_personaje",                                  //crea tabla intermedia que relaciona los id de cada entidad
-            joinColumns = @JoinColumn(name = "personaje_id"),             //lado de la tabla owning side
-            inverseJoinColumns = @JoinColumn(name = "pelicula_id")                              //inverso del owning side
+            name = "pelicula_personaje",                                  //Crea tabla intermedia que relaciona los id de cada entidad
+            joinColumns = @JoinColumn(name = "personaje_id"),             //lado de la tabla owning side.
+            inverseJoinColumns = @JoinColumn(name = "pelicula_id")        //Inverso del owning side.
     )
-    private Set<PeliculaSerieEntity> peliculasSeries =  new HashSet<>();                     //Personaje es el "owning side"
+    private Set<PeliculaSerieEntity> peliculasSeries;                     //Esta entidad es el "owning side".
 
 
 }
