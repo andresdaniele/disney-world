@@ -1,6 +1,5 @@
 package com.alkemy.disneyWorld;
 
-import com.alkemy.disneyWorld.entity.PersonajeEntity;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 

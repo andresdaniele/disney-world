@@ -9,28 +9,30 @@ import javax.persistence.*;
 import java.util.List;
 
 @Entity
-@Table(name = "genero")
+@Table(name = "genre")
 @Getter
 @Setter
-@SQLDelete(sql = "UPDATE personaje SET deleted = true WHERE id=?" )
+@SQLDelete(sql = "UPDATE genre SET deleted = true WHERE id=?" )
 @Where(clause = "deleted=false")
-public class GeneroEntity {
+public class GenreEntity {
 
     @Id
     @GeneratedValue(strategy = GenerationType.SEQUENCE)
     private Long id;
-    private String nombre;
-    private String imagen;
-    private boolean deleted = Boolean.FALSE;
+
+    @Column(nullable = false)
+    private String name;
+    private String image;
+    private Boolean deleted = Boolean.FALSE;
 
     @OneToMany(
-            mappedBy = "genero",                                  //El mapping de la relacion entre las peliculas y el genero lo realiza peliculas a
+            mappedBy = "genre",                                  //El mapping de la relacion entre las peliculas y el genero lo realiza peliculas a
             fetch = FetchType.LAZY,                               //traves de dejar la relacion plasmada en una columna de la tabla con el id de genero(Fk).
             cascade = {
                     CascadeType.PERSIST,                          //Fetch podria ser EAGER eager dado que la lista de peliculas probablemente no sea muy larga
                     CascadeType.MERGE                             //y no es necesario recibir los datos on-demand dado que con pocos datos la
             })                                                    //perforamance se va a ver poco afectada.
 
-    private List<PeliculaSerieEntity> peliculasSeries;
+    private List<MovieEntity> movies;
 
 }

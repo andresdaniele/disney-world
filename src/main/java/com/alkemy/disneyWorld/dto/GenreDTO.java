@@ -7,10 +7,10 @@ import java.util.List;
 
 @Getter
 @Setter
-public class GeneroDTO {
+public class GenreDTO {
 
     private Long id;
-    private String nombre;
-    private String imagen;
-    private List<PeliculaSerieDTO> peliculasSeriesDTO;
+    private String name;
+    private String image;
+    private List<MovieDTO> movies;
 }
