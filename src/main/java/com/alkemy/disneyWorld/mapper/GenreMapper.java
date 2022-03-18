@@ -15,13 +15,16 @@ public class GenreMapper {
     @Autowired
     private MovieMapper movieMapper;
 
-    public GenreEntity genreDTO2Entity(GenreDTO genreDTO) {
+    public GenreEntity genreDTO2Entity(GenreDTO genreDTO, boolean loadMovies) {
 
         GenreEntity genreEntity = new GenreEntity();
         genreEntity.setImage(genreDTO.getImage());
         genreEntity.setName(genreDTO.getName());
 
-       // genreEntity.setMovies(movieMapper.peliculasDTOList2EntityList(generoDTO.getPeliculasSeries()));
+        if(loadMovies){
+            genreEntity.setMovies(movieMapper.peliculasDTOList2EntityList(genreDTO.getMovies(), false));
+        }
+
 
         return genreEntity;
     }
@@ -33,13 +36,11 @@ public class GenreMapper {
         genreDTO.setImage(genre.getImage());
         genreDTO.setName(genre.getName());
 
-     /*
+
         if (loadMovies) {
             List<MovieDTO> movieDTOList = movieMapper.movieEntityList2DTOList(genre.getMovies(), false);
             genreDTO.setMovies(movieDTOList);
         }
-
-     */
 
         return genreDTO;
     }

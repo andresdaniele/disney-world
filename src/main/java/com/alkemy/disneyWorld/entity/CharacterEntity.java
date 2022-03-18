@@ -12,7 +12,7 @@ import java.util.List;
 @Table(name = "characters")
 @Getter
 @Setter
-@SQLDelete(sql = "UPDATE character SET deleted = true WHERE id=?")
+@SQLDelete(sql = "UPDATE characters SET deleted = true WHERE id=?")
 @Where(clause = "deleted=false")
 @Entity
 public class CharacterEntity {
@@ -33,18 +33,15 @@ public class CharacterEntity {
 
 
     @ManyToMany(
+            mappedBy = "characters",
+            fetch = FetchType.LAZY,
             cascade = {
                     CascadeType.PERSIST,
                     CascadeType.MERGE
             })
-    @JoinTable(
-            name = "movie_character",
-            joinColumns = @JoinColumn(name = "character_id"),
-            inverseJoinColumns = @JoinColumn(name = "movie_id")
-    )
     private List<MovieEntity> movies = new ArrayList<>();
 
-
+/*
     public void addMovie(MovieEntity movie) {
         this.movies.add(movie);
     }
@@ -52,5 +49,5 @@ public class CharacterEntity {
     public void deleteMovie(MovieEntity movie) {
         this.movies.remove(movie);
     }
-
+*/
 }

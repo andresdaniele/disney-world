@@ -37,16 +37,21 @@ public class MovieEntity {
 
 
     @ManyToMany(
-            mappedBy = "movies",
+            fetch = FetchType.LAZY,
             cascade = {
                     CascadeType.PERSIST,
                     CascadeType.MERGE
             })
-
+    @JoinTable(
+            name = "movie_character",
+            joinColumns = @JoinColumn(name = "movie_id"),
+            inverseJoinColumns = @JoinColumn(name = "character_id")
+    )
     private List<CharacterEntity> characters = new ArrayList<>();
 
 
     @ManyToOne(
+            fetch = FetchType.EAGER,
             cascade = {
                     CascadeType.PERSIST,
                     CascadeType.MERGE

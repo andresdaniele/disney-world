@@ -1,6 +1,5 @@
 package com.alkemy.disneyWorld.mapper;
 
-
 import com.alkemy.disneyWorld.dto.CharacterBasicDTO;
 import com.alkemy.disneyWorld.dto.MovieDTO;
 import com.alkemy.disneyWorld.dto.CharacterDTO;
@@ -26,7 +25,7 @@ public class CharacterMapper {                          //Mapper es reutilizable
 
 
     //conversion de DTO a entidad
-    public CharacterEntity characterDTO2Entity(CharacterDTO dto) {
+    public CharacterEntity characterDTO2Entity(CharacterDTO dto, boolean loadMovies) {
 
         CharacterEntity characterEntity = new CharacterEntity();
         characterEntity.setName(dto.getName());
@@ -35,7 +34,10 @@ public class CharacterMapper {                          //Mapper es reutilizable
         characterEntity.setWeight(dto.getWeight());
         characterEntity.setImage(dto.getImage());
 
-        //characterEntity.setMovies(movieMapper.peliculasDTOSet2EntitySet(dto.getPeliculasSeries()));
+        if(loadMovies){
+            characterEntity.setMovies(movieMapper.peliculasDTOList2EntityList(dto.getMovies(), false));
+        }
+
 
         return characterEntity;
     }
@@ -53,6 +55,7 @@ public class CharacterMapper {                          //Mapper es reutilizable
 
         if(loadMovies) {
             List<MovieDTO> moviesDTO = movieMapper.movieEntityList2DTOList(character.getMovies(), false);
+            characterDTO.setMovies(moviesDTO);
         }
 
         return characterDTO;
@@ -68,11 +71,11 @@ public class CharacterMapper {                          //Mapper es reutilizable
         return dtos;
     }
 
-    public List<CharacterEntity> characterDTOList2EntityList (List<CharacterDTO> charactersDTO ) {
+    public List<CharacterEntity> characterDTOList2EntityList (List<CharacterDTO> charactersDTO, boolean loadMovies ) {
 
         List<CharacterEntity> characters = new ArrayList<>();
         for (CharacterDTO characterDTO: charactersDTO) {
-            characters.add(characterDTO2Entity(characterDTO));
+            characters.add(characterDTO2Entity(characterDTO, loadMovies));
         }
 
         return characters;
@@ -97,4 +100,6 @@ public class CharacterMapper {                          //Mapper es reutilizable
 
         return characterBasicDTOList;
     }
+
+
 }

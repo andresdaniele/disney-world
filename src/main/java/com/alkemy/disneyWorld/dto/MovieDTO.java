@@ -1,11 +1,7 @@
 package com.alkemy.disneyWorld.dto;
 
-import com.alkemy.disneyWorld.entity.GenreEntity;
 import lombok.Getter;
 import lombok.Setter;
-
-
-import java.time.LocalDate;
 import java.util.List;
 
 @Getter
@@ -18,5 +14,5 @@ public class MovieDTO {
     private String creationDate;
     private Integer rating;
     private List<CharacterDTO> characters;
-    private GenreEntity genre;
+    private GenreDTO genre;
 }

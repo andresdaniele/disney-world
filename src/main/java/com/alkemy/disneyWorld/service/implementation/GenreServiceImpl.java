@@ -2,7 +2,7 @@ package com.alkemy.disneyWorld.service.implementation;
 
 import com.alkemy.disneyWorld.dto.GenreDTO;
 import com.alkemy.disneyWorld.entity.GenreEntity;
-import com.alkemy.disneyWorld.entity.MovieEntity;
+import com.alkemy.disneyWorld.exception.ParamNotFound;
 import com.alkemy.disneyWorld.mapper.GenreMapper;
 import com.alkemy.disneyWorld.repository.GenreRepository;
 import com.alkemy.disneyWorld.service.GenreService;
@@ -23,9 +23,9 @@ public class GenreServiceImpl implements GenreService {
 
     @Override
     public GenreDTO save(GenreDTO dto) {
-        GenreEntity genreEntity = genreMapper.genreDTO2Entity(dto);
+        GenreEntity genreEntity = genreMapper.genreDTO2Entity(dto, true);
         GenreEntity savedGenre = genreRepository.save(genreEntity);
-        GenreDTO genreDTO = genreMapper.genreEntity2DTO(savedGenre, true);
+        GenreDTO genreDTO = genreMapper.genreEntity2DTO(savedGenre, false);
 
         return genreDTO;
     }
@@ -40,7 +40,13 @@ public class GenreServiceImpl implements GenreService {
 
     @Override
     public void delete(Long id) {
-        genreRepository.deleteById(id);
+        Optional<GenreEntity> genreOptional = genreRepository.findById(id);
+
+        if(genreOptional.isPresent()) {
+            genreRepository.deleteById(id);
+        }else{
+            throw  new ParamNotFound("Genre not found");
+        }
     }
 
     @Override
@@ -50,7 +56,7 @@ public class GenreServiceImpl implements GenreService {
         if(genreOptional.isPresent()){
             return genreOptional.get();
         }else {
-            return null;
+            throw new ParamNotFound("Genre not found");
         }
     }
 

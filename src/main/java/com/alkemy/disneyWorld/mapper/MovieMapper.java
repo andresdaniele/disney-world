@@ -1,8 +1,10 @@
 package com.alkemy.disneyWorld.mapper;
 
+import com.alkemy.disneyWorld.dto.GenreDTO;
+import com.alkemy.disneyWorld.dto.MovieBasicDTO;
 import com.alkemy.disneyWorld.dto.MovieDTO;
 import com.alkemy.disneyWorld.dto.CharacterDTO;
-import com.alkemy.disneyWorld.dto.MovieBasicDTO;
+import com.alkemy.disneyWorld.entity.GenreEntity;
 import com.alkemy.disneyWorld.entity.MovieEntity;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
@@ -20,35 +22,44 @@ public class MovieMapper {
     @Autowired
     private CharacterMapper characterMapper;
 
+    @Autowired
+    private GenreMapper genreMapper;
 
-    public MovieEntity movieDTO2entity(MovieDTO movieDTO) {
+
+    public MovieEntity movieDTO2entity(MovieDTO movieDTO, boolean loadCharacters) {
 
         MovieEntity movieEntity = new MovieEntity();
         movieEntity.setRating(movieDTO.getRating());
         movieEntity.setCreationDate(string2LocalDate(movieDTO.getCreationDate()));
         movieEntity.setImage(movieDTO.getImage());
         movieEntity.setTitle(movieDTO.getTitle());
-        movieEntity.setGenre(movieDTO.getGenre());
 
-        //movieEntity.setCharacters(characterMapper.characterDTOList2EntityList(movieDTO.getCharacter()));
+        GenreEntity genreEntity = genreMapper.genreDTO2Entity(movieDTO.getGenre(), false);
+        movieEntity.setGenre(genreEntity);
+
+        if(loadCharacters) {
+            movieEntity.setCharacters(characterMapper.characterDTOList2EntityList(movieDTO.getCharacters(), false));
+        }
+
 
         return movieEntity;
     }
 
 
-    public MovieDTO movieEntity2DTO(MovieEntity movie, boolean loadCharacters) {
+    public MovieDTO movieEntity2DTO(MovieEntity movieEntity, boolean loadCharacters) {
 
         MovieDTO movieDTO = new MovieDTO();
-        movieDTO.setId(movie.getId());
-        movieDTO.setImage(movie.getImage());
-        movieDTO.setRating(movie.getRating());
-        movieDTO.setTitle(movie.getTitle());
-        movieDTO.setCreationDate(movie.getCreationDate().toString());
-        movieDTO.setGenre(movie.getGenre());
+        movieDTO.setId(movieEntity.getId());
+        movieDTO.setImage(movieEntity.getImage());
+        movieDTO.setRating(movieEntity.getRating());
+        movieDTO.setTitle(movieEntity.getTitle());
+        movieDTO.setCreationDate(movieEntity.getCreationDate().toString());
 
+        GenreDTO genreDTO = genreMapper.genreEntity2DTO(movieEntity.getGenre(), false);
+        movieDTO.setGenre(genreDTO);
 
         if (loadCharacters) {
-            List<CharacterDTO> charactersDTO = characterMapper.characterEntityList2DTOList(movie.getCharacters(), false);
+            List<CharacterDTO> charactersDTO = characterMapper.characterEntityList2DTOList(movieEntity.getCharacters(), false);
             movieDTO.setCharacters(charactersDTO);
         }
         return movieDTO;
@@ -64,21 +75,21 @@ public class MovieMapper {
         return dtos;
     }
 
-    public Set<MovieEntity> peliculasDTOSet2EntitySet(Set<MovieDTO> peliculasDTO) {
+    public List<MovieEntity> peliculasDTOList2EntityList(List<MovieDTO> movieDTOList, boolean loadCharacters) {
 
-        Set<MovieEntity> peliculas = new HashSet<>();
-        for (MovieDTO dto : peliculasDTO) {
-            peliculas.add(movieDTO2entity(dto));
+        List<MovieEntity> movies = new ArrayList<>();
+        for (MovieDTO dto : movieDTOList) {
+            movies.add(movieDTO2entity(dto, loadCharacters));
         }
 
-        return peliculas;
+        return movies;
     }
 
-    public List<MovieEntity> movieDTOList2EntityList(List<MovieDTO> movieDTOList) {
+    public List<MovieEntity> movieDTOList2EntityList(List<MovieDTO> movieDTOList, boolean loadCharacters) {
 
         List<MovieEntity> movieEntityList = new ArrayList<>();
         for (MovieDTO movieDTO : movieDTOList) {
-            movieEntityList.add(movieDTO2entity(movieDTO));
+            movieEntityList.add(movieDTO2entity(movieDTO, loadCharacters));
         }
         return movieEntityList;
     }
@@ -99,6 +110,7 @@ public class MovieMapper {
         return date;
     }
 
+
     public MovieBasicDTO movieEntity2DTOBasic (MovieEntity movieEntity) {
 
         MovieBasicDTO movieBasicDTO = new MovieBasicDTO();
@@ -110,6 +122,8 @@ public class MovieMapper {
         return movieBasicDTO;
     }
 
+
+
     public List<MovieBasicDTO> movieEntityList2DTOBasicList(List<MovieEntity> movieEntityList) {
 
         List<MovieBasicDTO> movieBasicDTOList = new ArrayList<>();
@@ -120,4 +134,6 @@ public class MovieMapper {
 
         return movieBasicDTOList;
     }
+
+
 }

@@ -1,7 +1,7 @@
 package com.alkemy.disneyWorld.service;
 
-import com.alkemy.disneyWorld.dto.MovieDTO;
 import com.alkemy.disneyWorld.dto.MovieBasicDTO;
+import com.alkemy.disneyWorld.dto.MovieDTO;
 import com.alkemy.disneyWorld.entity.MovieEntity;
 
 import java.util.List;
@@ -9,8 +9,6 @@ import java.util.List;
 public interface MovieService {
 
     MovieDTO save(MovieDTO dto);
-
-    List<MovieDTO> getAllMovies();
 
     void delete(Long id);
 
@@ -28,4 +26,5 @@ public interface MovieService {
 
     void addGenre(Long id, Long genreID);
 
+    List<MovieDTO> getMovieByFilters(String name, Long genreID, String order);
 }
