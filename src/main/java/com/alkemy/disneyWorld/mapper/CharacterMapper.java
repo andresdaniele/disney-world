@@ -16,14 +16,6 @@ public class CharacterMapper {                          //Mapper es reutilizable
     @Autowired
     private MovieMapper movieMapper;
 
-/*
-    @Autowired
-    public CharacterMapper(@Lazy MovieMapper movieMapper) {
-        this.movieMapper = movieMapper;
-    }
-*/
-
-
     //conversion de DTO a entidad
     public CharacterEntity characterDTO2Entity(CharacterDTO dto, boolean loadMovies) {
 
@@ -37,7 +29,6 @@ public class CharacterMapper {                          //Mapper es reutilizable
         if(loadMovies){
             characterEntity.setMovies(movieMapper.peliculasDTOList2EntityList(dto.getMovies(), false));
         }
-
 
         return characterEntity;
     }
