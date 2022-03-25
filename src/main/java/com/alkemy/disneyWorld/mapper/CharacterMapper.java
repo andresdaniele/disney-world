@@ -16,10 +16,7 @@ public class CharacterMapper {                          //Mapper is convenient t
     @Autowired
     private MovieMapper movieMapper;
 
-<<<<<<< HEAD
     //Receives a DTO and returns an entity
-=======
->>>>>>> 93e0f729e166f97dcba96d0cbe9c601f59992bd8
     public CharacterEntity characterDTO2Entity(CharacterDTO dto, boolean loadMovies) {
 
         CharacterEntity characterEntity = new CharacterEntity();
