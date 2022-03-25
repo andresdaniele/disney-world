@@ -12,9 +12,7 @@ import org.springframework.stereotype.Component;
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
-import java.util.HashSet;
 import java.util.List;
-import java.util.Set;
 
 @Component
 public class MovieMapper {
@@ -65,17 +63,8 @@ public class MovieMapper {
         return movieDTO;
     }
 
-    public Set<MovieDTO> peliculaEntitySet2DTOSet(Set<MovieEntity> peliculas, boolean loadPersonajes) {
 
-        Set<MovieDTO> dtos = new HashSet<>();
-
-        for (MovieEntity pelicula : peliculas) {
-            dtos.add(movieEntity2DTO(pelicula, loadPersonajes));
-        }
-        return dtos;
-    }
-
-    public List<MovieEntity> peliculasDTOList2EntityList(List<MovieDTO> movieDTOList, boolean loadCharacters) {
+    public List<MovieEntity> moviesDTOList2EntityList(List<MovieDTO> movieDTOList, boolean loadCharacters) {
 
         List<MovieEntity> movies = new ArrayList<>();
         for (MovieDTO dto : movieDTOList) {
@@ -94,16 +83,17 @@ public class MovieMapper {
         return movieEntityList;
     }
 
-    public List<MovieDTO> movieEntityList2DTOList(List<MovieEntity> movies, boolean loadMovies) {
+    public List<MovieDTO> movieEntityList2DTOList(List<MovieEntity> movies, boolean loadCharacters) {
 
         List<MovieDTO> dtos = new ArrayList<>();
 
         for (MovieEntity movie : movies) {
-            dtos.add(movieEntity2DTO(movie, loadMovies));
+            dtos.add(movieEntity2DTO(movie, loadCharacters));
         }
         return dtos;
     }
 
+    //Receives a string date. Format and parse to LocalDate. Returns a LocalDate date.
     public LocalDate string2LocalDate (String stringDate) {
         DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy,MM,dd");
         LocalDate date = LocalDate.parse(stringDate, formatter);
@@ -121,7 +111,6 @@ public class MovieMapper {
 
         return movieBasicDTO;
     }
-
 
 
     public List<MovieBasicDTO> movieEntityList2DTOBasicList(List<MovieEntity> movieEntityList) {

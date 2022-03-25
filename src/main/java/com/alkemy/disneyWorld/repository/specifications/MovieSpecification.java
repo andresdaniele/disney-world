@@ -23,18 +23,18 @@ public class MovieSpecification {
 
             List<Predicate> predicates = new ArrayList<>();
 
-            if (StringUtils.hasLength(movieFilterDTO.getTitle())) {            //hasLenght checks if name is not an empty or null field
+            if (StringUtils.hasLength(movieFilterDTO.getTitle())) {            //hasLength checks if name is not an empty or null field
                 predicates.add(
                         criteriaBuilder.like(
-                                criteriaBuilder.lower(root.get("title")),
+                                criteriaBuilder.lower(root.get("title")),           //Criteria that checks if any movie contains on its title the received string
                                 "%" + movieFilterDTO.getTitle().toLowerCase() + "%")
                 );
             }
 
 
             if (movieFilterDTO.getGenreID() != null) {
-                Join<GenreEntity, MovieEntity> join = root.join("genre", JoinType.INNER);
-                Expression<Long> genreId = join.get("id");
+                Join<GenreEntity, MovieEntity> join = root.join("genre", JoinType.INNER);   //Establishes a join relationship between movies and genre.
+                Expression<Long> genreId = join.get("id");                                     //Build the criteria for searching movies that have a relationship with the id param.
                 predicates.add(genreId.in(movieFilterDTO.getGenreID()));
             }
 
@@ -43,7 +43,6 @@ public class MovieSpecification {
             query.distinct(true);
 
             //Order by filtering
-
             String orderByField = "title";
             query.orderBy(
                     movieFilterDTO.isASC() ?

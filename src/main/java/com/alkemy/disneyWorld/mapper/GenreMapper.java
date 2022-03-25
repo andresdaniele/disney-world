@@ -22,7 +22,7 @@ public class GenreMapper {
         genreEntity.setName(genreDTO.getName());
 
         if(loadMovies){
-            genreEntity.setMovies(movieMapper.peliculasDTOList2EntityList(genreDTO.getMovies(), false));
+            genreEntity.setMovies(movieMapper.moviesDTOList2EntityList(genreDTO.getMovies(), false));
         }
 
 
@@ -45,7 +45,7 @@ public class GenreMapper {
         return genreDTO;
     }
 
-    public List<GenreDTO> generoEntityListDTOList(List<GenreEntity> genres, boolean loadMovies) {
+    public List<GenreDTO> genreEntityListDTOList(List<GenreEntity> genres, boolean loadMovies) {
 
         List<GenreDTO> genreDTOList = new ArrayList<>();
         for (GenreEntity genre : genres) {

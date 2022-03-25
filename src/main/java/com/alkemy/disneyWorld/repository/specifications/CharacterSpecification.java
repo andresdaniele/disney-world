@@ -16,17 +16,20 @@ import java.util.ArrayList;
 import java.util.List;
 
 @Component
-public class CharacterSpecifiaction {
+public class CharacterSpecification {
 
+    //Receives a filterDTO with params of search as attributes.
     public Specification<CharacterEntity> getCharacterByFilters(CharacterFilterDTO characterFilterDTO) {
 
+        //lambda function. Create a criteria to get information from DB through repository.
         return (root, query, criteriaBuilder) -> {
 
             List<Predicate> predicates = new ArrayList<>();
 
-            if (StringUtils.hasLength(characterFilterDTO.getName())) {            //hasLenght checks if name is not an empty or null field
+            //
+            if (StringUtils.hasLength(characterFilterDTO.getName())) {            //hasLength checks if name is not an empty or null field
                 predicates.add(
-                        criteriaBuilder.like(
+                        criteriaBuilder.like(                                     //Criteria that checks if any characters contains on its name the received string
                                 criteriaBuilder.lower(root.get("name")),
                                 "%" + characterFilterDTO.getName().toLowerCase() + "%")
                 );
@@ -34,13 +37,13 @@ public class CharacterSpecifiaction {
 
             if (characterFilterDTO.getAge() != null) {
                 predicates.add(
-                        criteriaBuilder.equal(root.get("age"), characterFilterDTO.getAge())
+                        criteriaBuilder.equal(root.get("age"), characterFilterDTO.getAge())   //Build criteria to find an entity that equals age params
                 );
             }
 
             if (!CollectionUtils.isEmpty(characterFilterDTO.getMoviesIdSet())) {
-                Join<MovieEntity, CharacterEntity> join = root.join("movies", JoinType.INNER);
-                Expression<Long> moviesId = join.get("id");
+                Join<MovieEntity, CharacterEntity> join = root.join("movies", JoinType.INNER);   //Establishes a join relationship between movie and character entities.
+                Expression<Long> moviesId = join.get("id");                                         //Build criteria that compares id provided with movie id.
                 predicates.add(moviesId.in(characterFilterDTO.getMoviesIdSet()));
             }
 
@@ -48,7 +51,6 @@ public class CharacterSpecifiaction {
             query.distinct(true);
 
             //Order by filtering
-
             String orderByField = "name";
             query.orderBy(
                     characterFilterDTO.isASC() ?

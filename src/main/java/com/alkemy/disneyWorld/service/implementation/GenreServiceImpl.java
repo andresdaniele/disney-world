@@ -21,6 +21,8 @@ public class GenreServiceImpl implements GenreService {
     @Autowired
     private GenreRepository genreRepository;
 
+
+    //Receives a character DTO, persist entity on DB and return saved DTO.
     @Override
     public GenreDTO save(GenreDTO dto) {
         GenreEntity genreEntity = genreMapper.genreDTO2Entity(dto, true);
@@ -30,14 +32,16 @@ public class GenreServiceImpl implements GenreService {
         return genreDTO;
     }
 
+    //Returns a list of genres with complete information.
     @Override
     public List<GenreDTO> getAllGenre() {
         List<GenreEntity> genreEntities = genreRepository.findAll();
-        List<GenreDTO> generosDTO = genreMapper.generoEntityListDTOList(genreEntities, true);
+        List<GenreDTO> generosDTO = genreMapper.genreEntityListDTOList(genreEntities, true);
 
         return generosDTO;
     }
 
+    //Receives a genre id, search for it on DB and soft delete it.
     @Override
     public void delete(Long id) {
         Optional<GenreEntity> genreOptional = genreRepository.findById(id);
@@ -49,6 +53,7 @@ public class GenreServiceImpl implements GenreService {
         }
     }
 
+    //Receives a genre id, find it on DB and return entity.
     @Override
     public GenreEntity getGenreById(Long id) {
         Optional<GenreEntity> genreOptional = genreRepository.findById(id);

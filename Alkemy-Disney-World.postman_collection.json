@@ -1,0 +1,666 @@
+{
+	"info": {
+		"_postman_id": "e63a23cb-c663-4370-bf0f-221dedf594d5",
+		"name": "Alkemy-Disney-World",
+		"description": "Disney World is a Alkemy pre-aceleracion's challenge. Its based on Disney movies and series. You can create, delete, filter and modify a character, movie or genre from Disney universe.",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+	},
+	"item": [
+		{
+			"name": "characters endpoints",
+			"item": [
+				{
+					"name": "/characters",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"name\": \"name\",\r\n    \"image\": \"image\",\r\n    \"age\": 0,\r\n    \"weight\": 0,\r\n    \"history\": \"biography\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:8080/characters/",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"characters",
+								""
+							]
+						},
+						"description": "Save a new character"
+					},
+					"response": [
+						{
+							"name": "/characters",
+							"originalRequest": {
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n    \"name\": \"Winnie Poh\",\r\n    \"image\": \"winnie_poo.jpg\",\r\n    \"age\": 6,\r\n    \"weight\": 213,\r\n    \"history\": \"It is a bear that eats honey\"\r\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "http://localhost:8080/characters/",
+									"protocol": "http",
+									"host": [
+										"localhost"
+									],
+									"port": "8080",
+									"path": [
+										"characters",
+										""
+									]
+								}
+							},
+							"_postman_previewlanguage": null,
+							"header": null,
+							"cookie": [],
+							"body": null
+						}
+					]
+				},
+				{
+					"name": "/characters",
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Bearer eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJhbmRyZXNtZGFuaWVsZUBnbWFpbC5jb20iLCJleHAiOjE2NDgyNzUwODQsImlhdCI6MTY0ODIzOTA4NH0.bfo9S8SOZPvyiCnNUnv_vRFgrrqG5hutWZ3a085b0OI",
+								"type": "text"
+							}
+						],
+						"url": {
+							"raw": "http://localhost:8080/characters?moviesIdSet=1,18",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"characters"
+							],
+							"query": [
+								{
+									"key": "name",
+									"value": "w",
+									"disabled": true
+								},
+								{
+									"key": "age",
+									"value": "25",
+									"disabled": true
+								},
+								{
+									"key": "order",
+									"value": "ACS",
+									"disabled": true
+								},
+								{
+									"key": "moviesIdSet",
+									"value": "1,18"
+								}
+							]
+						},
+						"description": "Return a character based on filters. You can filter by name, age and movie id. If you send the request without any filter param, all characters with all entities attributes are going to be returned."
+					},
+					"response": []
+				},
+				{
+					"name": "/characters/{id}",
+					"request": {
+						"method": "PUT",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:8080/character/1",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"character",
+								"1"
+							]
+						},
+						"description": "Modify and update a certain character."
+					},
+					"response": []
+				},
+				{
+					"name": "/characters/{id}",
+					"request": {
+						"method": "DELETE",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:8080/characters/13",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"characters",
+								"13"
+							]
+						},
+						"description": "Delete a certain character through its id."
+					},
+					"response": []
+				},
+				{
+					"name": "/characters/all",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:8080/character/all",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"character",
+								"all"
+							]
+						},
+						"description": "Get a list of all the characters with basic information."
+					},
+					"response": []
+				},
+				{
+					"name": "/characters/{id}",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:8080/character/1",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"character",
+								"1"
+							]
+						},
+						"description": "Get certain character complete information by id."
+					},
+					"response": []
+				}
+			],
+			"description": "Endpoints where you can create, delete, modify or get by filters characters from Disney movies and series."
+		},
+		{
+			"name": "genres endpoints",
+			"item": [
+				{
+					"name": "/genres",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"name\": \"name\",\r\n    \"image\": \"image\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:8080/genres",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"genres"
+							]
+						},
+						"description": "Save a new genre."
+					},
+					"response": [
+						{
+							"name": "/genres",
+							"originalRequest": {
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n    \"name\": \"thriller\",\r\n    \"image\": \"thriller.jpg\"\r\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "http://localhost:8080/genres",
+									"protocol": "http",
+									"host": [
+										"localhost"
+									],
+									"port": "8080",
+									"path": [
+										"genres"
+									]
+								}
+							},
+							"_postman_previewlanguage": null,
+							"header": null,
+							"cookie": [],
+							"body": null
+						}
+					]
+				},
+				{
+					"name": "/genres",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:8080/genres/all",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"genres",
+								"all"
+							]
+						},
+						"description": "Get a list of all genres with complete information."
+					},
+					"response": []
+				},
+				{
+					"name": "/genres/{id}",
+					"request": {
+						"method": "DELETE",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:8080/genres/3",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"genres",
+								"3"
+							]
+						},
+						"description": "Delete a certain genre through its id."
+					},
+					"response": []
+				}
+			],
+			"description": "Endpoints where you can create, delete, modify or get by filters characters from Disney movies and series."
+		},
+		{
+			"name": "movies endpoints",
+			"item": [
+				{
+					"name": "/movies/{id}",
+					"request": {
+						"method": "DELETE",
+						"header": [],
+						"body": {
+							"mode": "formdata",
+							"formdata": []
+						},
+						"url": {
+							"raw": "http://localhost:8080/movies/11",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"movies",
+								"11"
+							]
+						},
+						"description": "Delete a certain movie through its id."
+					},
+					"response": []
+				},
+				{
+					"name": "/movies",
+					"request": {
+						"method": "PUT",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"title\" : \"title\",\r\n    \"image\" : \"image\",\r\n    \"rating\" : 0,\r\n    \"creationDate\" : \"\" \r\n}\r\n",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:8080/movies/10",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"movies",
+								"10"
+							]
+						},
+						"description": "Modify and update a certain movie."
+					},
+					"response": [
+						{
+							"name": "movies",
+							"originalRequest": {
+								"method": "PUT",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n    \"title\" : \"Captain America: Civil War\",\r\n    \"image\" : \"cap_ame_civil_war.jpg\",\r\n    \"rating\" : 3,\r\n    \"creationDate\" : \"2016,05,05\" \r\n}\r\n",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "http://localhost:8080/movies/10",
+									"protocol": "http",
+									"host": [
+										"localhost"
+									],
+									"port": "8080",
+									"path": [
+										"movies",
+										"10"
+									]
+								}
+							},
+							"_postman_previewlanguage": null,
+							"header": null,
+							"cookie": [],
+							"body": null
+						}
+					]
+				},
+				{
+					"name": "movies/{movieID}/character/{characterID}",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:8080/movies/9/character/8",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"movies",
+								"9",
+								"character",
+								"8"
+							]
+						},
+						"description": "Add an existing character to a movie."
+					},
+					"response": []
+				},
+				{
+					"name": "/movies/{movieID}/genre/{genreID}",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:8080/movies/9/genre/6",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"movies",
+								"9",
+								"genre",
+								"6"
+							]
+						},
+						"description": "Add an existing genre to a movie."
+					},
+					"response": []
+				},
+				{
+					"name": "/movies/{movieID}/character/{characterID}",
+					"request": {
+						"method": "DELETE",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:8080/movies/9/character/8",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"movies",
+								"9",
+								"character",
+								"8"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "/movies",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Bearer eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJhbmRyZXNtZGFuaWVsZUBnbWFpbC5jb20iLCJleHAiOjE2NDgyNzUwODQsImlhdCI6MTY0ODIzOTA4NH0.bfo9S8SOZPvyiCnNUnv_vRFgrrqG5hutWZ3a085b0OI",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"title\": \"Finding Nemo\",\r\n    \"image\": \"finding_nemo.jpg\",\r\n    \"creationDate\": \"2003,07,03\",\r\n    \"rating\": 5,\r\n    \"characters\": [\r\n        {\r\n            \"name\": \"Nemo\",\r\n            \"image\": \"nemo.jpg\",\r\n            \"age\": 1,\r\n            \"weight\": 1,\r\n            \"history\": \"He is clown fish and its right fin is smaller than the left\"\r\n        }\r\n    ],\r\n    \"genre\": {\r\n            \"name\": \"Animation\",\r\n            \"image\": \"Animation.jpg\"\r\n    }   \r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:8080/movies",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"movies"
+							]
+						},
+						"description": "Save a new movie including its characters and genre."
+					},
+					"response": []
+				},
+				{
+					"name": "/movies/all",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:8080/movies/all",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"movies",
+								"all"
+							]
+						},
+						"description": "Get a list of all the movies and series with basic information."
+					},
+					"response": []
+				},
+				{
+					"name": "/movies",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:8080/movies?title=avengers&genrId=12&order=DESC",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"movies"
+							],
+							"query": [
+								{
+									"key": "title",
+									"value": "avengers"
+								},
+								{
+									"key": "genrId",
+									"value": "12"
+								},
+								{
+									"key": "order",
+									"value": "DESC"
+								}
+							]
+						},
+						"description": "Return a movie or serie based on filters. You can filter by title and/or genre id. Also you can specify if you want the titles in descending or ascending order. If you send the request without any filter param, all characters with all entities attributes are going to be returned."
+					},
+					"response": []
+				},
+				{
+					"name": "/movies/{id}",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:8080/movies/5",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"movies",
+								"5"
+							]
+						},
+						"description": "Get certain movie complete information by id."
+					},
+					"response": []
+				}
+			],
+			"description": "Endpoints where you can create, delete, modify or get by filters movies from Disney. Also you can add and remove characters and genres from a certain movie."
+		},
+		{
+			"name": "auth endpoints",
+			"item": [
+				{
+					"name": "auth/signup",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"username\": \"email@gmail.com\",\r\n    \"password\": \"password\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:8080/auth/signup",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"auth",
+								"signup"
+							]
+						},
+						"description": "Create an account that provides the user a JWT that allows it to makes request about movies, characters, etc. Also send a welcome email to the new user through SendGrid."
+					},
+					"response": []
+				},
+				{
+					"name": "/auth/signin",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"username\": \"andresmdaniele@gmail.com\",\r\n    \"password\": \"password1\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:8080/auth/signin",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"auth",
+								"signin"
+							]
+						}
+					},
+					"response": []
+				}
+			],
+			"description": "Sing up and log in endpoints. Provides the user a token to make requests over all the previous endpoints."
+		}
+	]
+}

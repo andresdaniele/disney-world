@@ -8,7 +8,7 @@ import com.alkemy.disneyWorld.exception.ParamNotFound;
 import com.alkemy.disneyWorld.mapper.CharacterMapper;
 import com.alkemy.disneyWorld.mapper.MovieMapper;
 import com.alkemy.disneyWorld.repository.CharacterRepository;
-import com.alkemy.disneyWorld.repository.specifications.CharacterSpecifiaction;
+import com.alkemy.disneyWorld.repository.specifications.CharacterSpecification;
 import com.alkemy.disneyWorld.service.CharacterService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -23,26 +23,28 @@ public class CharacterServiceImpl implements CharacterService {
     private CharacterMapper characterMapper;
     private CharacterRepository characterRepository;
     private MovieMapper movieMapper;
-    private CharacterSpecifiaction characterSpecifiaction;
+    private CharacterSpecification characterSpecification;
 
     @Autowired
-    public CharacterServiceImpl(CharacterMapper characterMapper, CharacterRepository characterRepository, MovieMapper movieMapper, CharacterSpecifiaction characterSpecifiaction) {
+    public CharacterServiceImpl(CharacterMapper characterMapper, CharacterRepository characterRepository, MovieMapper movieMapper, CharacterSpecification characterSpecification) {
         this.characterMapper = characterMapper;
         this.characterRepository = characterRepository;
         this.movieMapper = movieMapper;
-        this.characterSpecifiaction = characterSpecifiaction;
+        this.characterSpecification = characterSpecification;
     }
 
+    //Receives a character DTO, persist entity on DB and return saved DTO.
     @Override
     public CharacterDTO save(CharacterDTO dto) {
 
         CharacterEntity savedEntity = characterMapper.characterDTO2Entity(dto, true);
-        CharacterEntity savedCharacter = characterRepository.save(savedEntity);                         //El metodo save devuelve la entidad guardada con id ya asigando
-        CharacterDTO characterDTO = characterMapper.characterEntity2DTO(savedCharacter, false);   //y a esa entidad guardada la transformo en dto
+        CharacterEntity savedCharacter = characterRepository.save(savedEntity);                               //JpaRepository's save method return saved entity
+        CharacterDTO characterDTO = characterMapper.characterEntity2DTO(savedCharacter, true);
 
         return characterDTO;
     }
 
+    //Receives a character id,  look if it exists and soft delete it.
     public void delete(Long id) {
         Optional<CharacterEntity> characterOptional = characterRepository.findById(id);
 
@@ -55,6 +57,7 @@ public class CharacterServiceImpl implements CharacterService {
     }
 
 
+    //Returns a list of character DTO that contains basic information about them.
     @Override
     public List<CharacterBasicDTO> getAllCharacterBasic() {
         List<CharacterEntity> characterEntityList = characterRepository.findAll();
@@ -62,7 +65,7 @@ public class CharacterServiceImpl implements CharacterService {
         return characterBasicDTOList;
     }
 
-
+    //Receives a character id, find its entity on BD and returns a DTO that contains complete attributes from the character.
     @Override
     public CharacterDTO getCharacterDetailById(Long id) {
         CharacterEntity characterEntity = getCharacterById(id);
@@ -70,6 +73,7 @@ public class CharacterServiceImpl implements CharacterService {
         return characterDTO;
     }
 
+    //Method to confirm if character exists and if it not, throws an exception
     @Override
     public CharacterEntity getCharacterById(Long id) {
         Optional<CharacterEntity> characterOptional = characterRepository.findById(id);
@@ -81,6 +85,7 @@ public class CharacterServiceImpl implements CharacterService {
         }
     }
 
+    //Receives character id and DTO with new character's values and persist it on DB. Returns the new character DTO.
     @Override
     public CharacterDTO updateCharacter(Long id, CharacterDTO characterDTO) {
         CharacterEntity characterEntity = getCharacterById(id);
@@ -91,11 +96,11 @@ public class CharacterServiceImpl implements CharacterService {
         characterEntity.setImage(characterDTO.getImage());
         characterEntity.setWeight(characterDTO.getWeight());
 
-        /*
+
         if (characterDTO.getMovies() != null) {
-            characterEntity.setMovies(movieMapper.movieDTOList2EntityList(characterDTO.getMovies()));
+            characterEntity.setMovies(movieMapper.movieDTOList2EntityList(characterDTO.getMovies(), false));
         }
-         */
+
 
         CharacterEntity updatedCharacter = characterRepository.save(characterEntity);
 
@@ -105,10 +110,12 @@ public class CharacterServiceImpl implements CharacterService {
     }
 
 
+    //Receives different params and return a list of character DTO with the results. Uses a specification to perform the search.
+    //If no entity was found through filters it returns a list of all characters with complete entity attributes.
     @Override
     public List<CharacterDTO> getCharactersByFilters(String name, Integer age, Set<Long> moviesIdSet, String order) {
-        CharacterFilterDTO characterFilterDTO = new CharacterFilterDTO(name, age, moviesIdSet, order);
-        List<CharacterEntity> characterEntityList = characterRepository.findAll(characterSpecifiaction.getCharacterByFilters(characterFilterDTO));
+        CharacterFilterDTO characterFilterDTO = new CharacterFilterDTO(name, age, moviesIdSet, order);     //New filterDTO with attribute values received by params
+        List<CharacterEntity> characterEntityList = characterRepository.findAll(characterSpecification.getCharacterByFilters(characterFilterDTO));
         List<CharacterDTO> characterDTOList = characterMapper.characterEntityList2DTOList(characterEntityList, true);
 
         return characterDTOList;

@@ -69,7 +69,7 @@ public class MovieController {
     public ResponseEntity<List<MovieDTO>> getDetailsByFilters(
             @RequestParam(required = false) String title,
             @RequestParam(required = false) Long genreId,
-            @RequestParam(required = false, defaultValue = "ACS") String order
+            @RequestParam(required = false, defaultValue = "ASC") String order
     ) {
         List<MovieDTO> movieDTOList = movieService.getMovieByFilters(title, genreId, order);
         return ResponseEntity.status(HttpStatus.OK).body(movieDTOList);

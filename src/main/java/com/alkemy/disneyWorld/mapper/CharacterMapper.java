@@ -11,20 +11,12 @@ import java.util.ArrayList;
 import java.util.List;
 
 @Component
-public class CharacterMapper {                          //Mapper es reutilizable y deja limpia la logica en el servicio
+public class CharacterMapper {                          //Mapper is convenient to avoid re-writing code in services. Contains universal methods to apply in services.
 
     @Autowired
     private MovieMapper movieMapper;
 
-/*
-    @Autowired
-    public CharacterMapper(@Lazy MovieMapper movieMapper) {
-        this.movieMapper = movieMapper;
-    }
-*/
-
-
-    //conversion de DTO a entidad
+    //Receives a DTO and returns an entity
     public CharacterEntity characterDTO2Entity(CharacterDTO dto, boolean loadMovies) {
 
         CharacterEntity characterEntity = new CharacterEntity();
@@ -35,14 +27,14 @@ public class CharacterMapper {                          //Mapper es reutilizable
         characterEntity.setImage(dto.getImage());
 
         if(loadMovies){
-            characterEntity.setMovies(movieMapper.peliculasDTOList2EntityList(dto.getMovies(), false));
+            characterEntity.setMovies(movieMapper.moviesDTOList2EntityList(dto.getMovies(), false));
         }
 
 
         return characterEntity;
     }
 
-    //conversion de entidad a DTO
+    //Receives an entity and returns a DTO
     public CharacterDTO characterEntity2DTO(CharacterEntity character, boolean loadMovies){
 
         CharacterDTO characterDTO = new CharacterDTO();
@@ -61,6 +53,7 @@ public class CharacterMapper {                          //Mapper es reutilizable
         return characterDTO;
     }
 
+    //Receives an entity list and returns a DTO list
     public List<CharacterDTO> characterEntityList2DTOList(List<CharacterEntity> characters, boolean loadMovies) {
 
         List<CharacterDTO> dtos = new ArrayList<>();
@@ -71,6 +64,7 @@ public class CharacterMapper {                          //Mapper es reutilizable
         return dtos;
     }
 
+    //Receives a DTO list and returns an entity list
     public List<CharacterEntity> characterDTOList2EntityList (List<CharacterDTO> charactersDTO, boolean loadMovies ) {
 
         List<CharacterEntity> characters = new ArrayList<>();
@@ -81,6 +75,7 @@ public class CharacterMapper {                          //Mapper es reutilizable
         return characters;
     }
 
+    //Receives an entity and returns DTO basic.
     public CharacterBasicDTO characterEntity2DTOBasic (CharacterEntity characterEntity) {
 
         CharacterBasicDTO characterBasicDTO = new CharacterBasicDTO();
@@ -90,6 +85,7 @@ public class CharacterMapper {                          //Mapper es reutilizable
         return characterBasicDTO;
     }
 
+    //Receives an entity list and returns DTO basic list.
     public List<CharacterBasicDTO> characterEntityList2DTOBasicList(List<CharacterEntity> characterEntityList) {
 
         List<CharacterBasicDTO> characterBasicDTOList = new ArrayList<>();

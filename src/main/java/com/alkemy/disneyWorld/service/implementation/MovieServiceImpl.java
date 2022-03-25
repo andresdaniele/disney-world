@@ -6,6 +6,7 @@ import com.alkemy.disneyWorld.entity.GenreEntity;
 import com.alkemy.disneyWorld.entity.MovieEntity;
 import com.alkemy.disneyWorld.exception.ParamNotFound;
 import com.alkemy.disneyWorld.mapper.CharacterMapper;
+import com.alkemy.disneyWorld.mapper.GenreMapper;
 import com.alkemy.disneyWorld.mapper.MovieMapper;
 import com.alkemy.disneyWorld.repository.MovieRepository;
 import com.alkemy.disneyWorld.repository.specifications.MovieSpecification;
@@ -27,15 +28,17 @@ public class MovieServiceImpl implements MovieService {
     private CharacterService characterService;
     private GenreService genreService;
     private MovieSpecification movieSpecification;
+    private GenreMapper genreMapper;
 
     @Autowired
-    public MovieServiceImpl(MovieMapper movieMapper, MovieRepository movieRepository, CharacterMapper characterMapper, CharacterService characterService, GenreService genreService, MovieSpecification movieSpecification) {
+    public MovieServiceImpl(MovieMapper movieMapper, MovieRepository movieRepository, CharacterMapper characterMapper, CharacterService characterService, GenreService genreService, MovieSpecification movieSpecification, GenreMapper genreMapper) {
         this.movieMapper = movieMapper;
         this.movieRepository = movieRepository;
         this.characterMapper = characterMapper;
         this.characterService = characterService;
         this.genreService = genreService;
         this.movieSpecification = movieSpecification;
+        this.genreMapper = genreMapper;
     }
 
     @Override
@@ -85,6 +88,7 @@ public class MovieServiceImpl implements MovieService {
         return movieDTO;
     }
 
+    ////Receives character id and DTO with new movie's values and persist it on DB. Check if its characters and genre where changed and returns the new character DTO.
     @Override
     public MovieDTO updateMovie(Long id, MovieDTO movieDTO) {
         MovieEntity movieEntity = getMovieById(id);
@@ -94,15 +98,15 @@ public class MovieServiceImpl implements MovieService {
         movieEntity.setImage(movieDTO.getImage());
         movieEntity.setCreationDate(movieMapper.string2LocalDate(movieDTO.getCreationDate()));
 
-        /*
         if(movieDTO.getCharacters() != null) {
-            movieEntity.setCharacters(characterMapper.characterDTOList2EntityList(movieDTO.getCharacters()));
+            movieEntity.setCharacters(characterMapper.characterDTOList2EntityList(movieDTO.getCharacters(), false));
         }
 
         if(movieDTO.getGenre() != null) {
-            movieEntity.setGenre(movieDTO.getGenre());
+            GenreEntity genreEntity = genreMapper.genreDTO2Entity(movieDTO.getGenre(), false);
+            movieEntity.setGenre(genreEntity);
         }
-         */
+
 
         MovieEntity updatedMovie = movieRepository.save(movieEntity);
 
@@ -111,6 +115,7 @@ public class MovieServiceImpl implements MovieService {
         return updatedMovieDTO;
     }
 
+    //Establishes a new relationship between a movie and a character.
     @Override
     public void addCharacter(Long id, Long characterID) {
         MovieEntity movieEntity = getMovieById(id);
@@ -122,6 +127,7 @@ public class MovieServiceImpl implements MovieService {
         movieRepository.save(movieEntity);
     }
 
+    //Delete an existing relationship between a movie and a character.
     @Override
     public void deleteCharacter(Long id, Long characterID) {
         MovieEntity movieEntity = getMovieById(id);
@@ -133,6 +139,7 @@ public class MovieServiceImpl implements MovieService {
         movieRepository.save(movieEntity);
     }
 
+    //Persist a relationship between a movie and an existing genre.
     @Override
     public void addGenre(Long id, Long genreID) {
         MovieEntity movieEntity = getMovieById(id);
@@ -144,6 +151,8 @@ public class MovieServiceImpl implements MovieService {
         movieRepository.save(movieEntity);
     }
 
+    //Receives different params and return a list of character DTO with the results. Uses a specification to perform the search.
+    //If no entity was found through filters it returns a list of all characters with complete entity attributes.
     @Override
     public List<MovieDTO> getMovieByFilters(String title, Long genreID, String order) {
         MovieFilterDTO movieFilterDTO = new MovieFilterDTO(title, genreID, order);

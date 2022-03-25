@@ -41,13 +41,4 @@ public class CharacterEntity {
             })
     private List<MovieEntity> movies = new ArrayList<>();
 
-/*
-    public void addMovie(MovieEntity movie) {
-        this.movies.add(movie);
-    }
-
-    public void deleteMovie(MovieEntity movie) {
-        this.movies.remove(movie);
-    }
-*/
 }

@@ -24,7 +24,6 @@ public class CharacterController {
         return ResponseEntity.ok().body(characterBasic);
     }
 
-
     @GetMapping("{id}")
     public ResponseEntity<CharacterDTO> getCharacterDetailbyId(@PathVariable Long id) {
         CharacterDTO characterDTO = characterService.getCharacterDetailById(id);
