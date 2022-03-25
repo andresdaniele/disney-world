@@ -78,6 +78,7 @@ public class CharacterMapper {                          //Mapper is convenient t
     public CharacterBasicDTO characterEntity2DTOBasic (CharacterEntity characterEntity) {
 
         CharacterBasicDTO characterBasicDTO = new CharacterBasicDTO();
+        characterBasicDTO.setId(characterEntity.getId());
         characterBasicDTO.setName(characterEntity.getName());
         characterBasicDTO.setImage(characterEntity.getImage());
 

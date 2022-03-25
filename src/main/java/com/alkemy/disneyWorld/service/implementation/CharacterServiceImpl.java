@@ -113,12 +113,12 @@ public class CharacterServiceImpl implements CharacterService {
     //Receives different params and return a list of character DTO with the results. Uses a specification to perform the search.
     //If no entity was found through filters it returns a list of all characters with complete entity attributes.
     @Override
-    public List<CharacterDTO> getCharactersByFilters(String name, Integer age, Set<Long> moviesIdSet, String order) {
+    public List<CharacterBasicDTO> getCharactersByFilters(String name, Integer age, Set<Long> moviesIdSet, String order) {
         CharacterFilterDTO characterFilterDTO = new CharacterFilterDTO(name, age, moviesIdSet, order);     //New filterDTO with attribute values received by params
         List<CharacterEntity> characterEntityList = characterRepository.findAll(characterSpecification.getCharacterByFilters(characterFilterDTO));
-        List<CharacterDTO> characterDTOList = characterMapper.characterEntityList2DTOList(characterEntityList, true);
+        List<CharacterBasicDTO> characterBasicDTOList = characterMapper.characterEntityList2DTOBasicList(characterEntityList);
 
-        return characterDTOList;
+        return characterBasicDTOList;
     }
 
 

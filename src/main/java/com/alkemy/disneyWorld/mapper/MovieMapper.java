@@ -104,6 +104,7 @@ public class MovieMapper {
     public MovieBasicDTO movieEntity2DTOBasic (MovieEntity movieEntity) {
 
         MovieBasicDTO movieBasicDTO = new MovieBasicDTO();
+        movieBasicDTO.setId(movieEntity.getId());
         movieBasicDTO.setTitle(movieEntity.getTitle());
         movieBasicDTO.setImage(movieEntity.getImage());
         movieBasicDTO.setCreationDate(movieEntity.getCreationDate().toString());

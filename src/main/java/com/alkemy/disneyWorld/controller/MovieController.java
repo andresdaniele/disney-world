@@ -24,7 +24,7 @@ public class MovieController {
     }
 
     @GetMapping("{id}")
-    public ResponseEntity<MovieDTO> getMovieDetailbyId(@PathVariable Long id) {
+    public ResponseEntity<MovieDTO> getMovieDetailById(@PathVariable Long id) {
         MovieDTO movieDTO = movieService.getMovieDetailById(id);
         return ResponseEntity.ok().body(movieDTO);
     }
@@ -66,12 +66,12 @@ public class MovieController {
     }
 
     @GetMapping()
-    public ResponseEntity<List<MovieDTO>> getDetailsByFilters(
+    public ResponseEntity<List<MovieBasicDTO>> getDetailsByFilters(
             @RequestParam(required = false) String title,
             @RequestParam(required = false) Long genreId,
             @RequestParam(required = false, defaultValue = "ASC") String order
     ) {
-        List<MovieDTO> movieDTOList = movieService.getMovieByFilters(title, genreId, order);
-        return ResponseEntity.status(HttpStatus.OK).body(movieDTOList);
+        List<MovieBasicDTO> movieBasicDTOList = movieService.getMovieByFilters(title, genreId, order);
+        return ResponseEntity.status(HttpStatus.OK).body(movieBasicDTOList);
     }
 }

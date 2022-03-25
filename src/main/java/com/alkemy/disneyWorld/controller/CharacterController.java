@@ -51,14 +51,14 @@ public class CharacterController {
     }
 
     @GetMapping()
-    public ResponseEntity<List<CharacterDTO>> getDetailsByFilters(
+    public ResponseEntity<List<CharacterBasicDTO>> getDetailsByFilters(
             @RequestParam(required = false) String name,
             @RequestParam(required = false) Integer age,
             @RequestParam(required = false) Set<Long> moviesIdSet,
             @RequestParam(required = false, defaultValue = "ACS") String order
     ) {
-        List<CharacterDTO> characterDTOList = characterService.getCharactersByFilters(name, age, moviesIdSet, order);
-        return ResponseEntity.status(HttpStatus.OK).body(characterDTOList);
+        List<CharacterBasicDTO> characterBasicDTOList = characterService.getCharactersByFilters(name, age, moviesIdSet, order);
+        return ResponseEntity.status(HttpStatus.OK).body(characterBasicDTOList);
     }
 
 

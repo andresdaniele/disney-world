@@ -26,5 +26,5 @@ public interface MovieService {
 
     void addGenre(Long id, Long genreID);
 
-    List<MovieDTO> getMovieByFilters(String name, Long genreID, String order);
+    List<MovieBasicDTO> getMovieByFilters(String name, Long genreID, String order);
 }

@@ -154,12 +154,12 @@ public class MovieServiceImpl implements MovieService {
     //Receives different params and return a list of character DTO with the results. Uses a specification to perform the search.
     //If no entity was found through filters it returns a list of all characters with complete entity attributes.
     @Override
-    public List<MovieDTO> getMovieByFilters(String title, Long genreID, String order) {
+    public List<MovieBasicDTO> getMovieByFilters(String title, Long genreID, String order) {
         MovieFilterDTO movieFilterDTO = new MovieFilterDTO(title, genreID, order);
         List<MovieEntity> movieEntityList = movieRepository.findAll(movieSpecification.getMovieByFilters(movieFilterDTO));
-        List<MovieDTO> movieDTOList = movieMapper.movieEntityList2DTOList(movieEntityList, true);
+        List<MovieBasicDTO> movieBasicDTOList = movieMapper.movieEntityList2DTOBasicList((movieEntityList));
 
-        return movieDTOList;
+        return movieBasicDTOList;
     }
 
 
