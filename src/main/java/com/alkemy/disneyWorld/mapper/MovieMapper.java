@@ -85,12 +85,12 @@ public class MovieMapper {
 
     public List<MovieDTO> movieEntityList2DTOList(List<MovieEntity> movies, boolean loadCharacters) {
 
-        List<MovieDTO> dtos = new ArrayList<>();
+        List<MovieDTO> movieDTOList = new ArrayList<>();
 
         for (MovieEntity movie : movies) {
-            dtos.add(movieEntity2DTO(movie, loadCharacters));
+            movieDTOList.add(movieEntity2DTO(movie, loadCharacters));
         }
-        return dtos;
+        return movieDTOList;
     }
 
     //Receives a string date. Format and parse to LocalDate. Returns a LocalDate date.

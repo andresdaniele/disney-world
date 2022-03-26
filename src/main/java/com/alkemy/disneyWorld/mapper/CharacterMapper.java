@@ -37,7 +37,7 @@ public class CharacterMapper {                          //Mapper is convenient t
     public CharacterDTO characterEntity2DTO(CharacterEntity character, boolean loadMovies){
 
         CharacterDTO characterDTO = new CharacterDTO();
-        characterDTO.setId(character.getId());              //La entidad si viene con el id asi que hay que asignarselo al DTO
+        characterDTO.setId(character.getId());
         characterDTO.setName(character.getName());
         characterDTO.setAge(character.getAge());
         characterDTO.setHistory(character.getHistory());
@@ -45,7 +45,7 @@ public class CharacterMapper {                          //Mapper is convenient t
         characterDTO.setImage(character.getImage());
 
         if(loadMovies) {
-            List<MovieDTO> moviesDTO = movieMapper.movieEntityList2DTOList(character.getMovies(), false);
+            List<MovieDTO> moviesDTO = movieMapper.movieEntityList2DTOList(character.getMovies(), true);
             characterDTO.setMovies(moviesDTO);
         }
 

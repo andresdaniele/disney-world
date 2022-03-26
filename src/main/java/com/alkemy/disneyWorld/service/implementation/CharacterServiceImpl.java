@@ -53,9 +53,7 @@ public class CharacterServiceImpl implements CharacterService {
         } else {
             throw new ParamNotFound("Movie not found");
         }
-
     }
-
 
     //Returns a list of character DTO that contains basic information about them.
     @Override
@@ -96,15 +94,9 @@ public class CharacterServiceImpl implements CharacterService {
         characterEntity.setImage(characterDTO.getImage());
         characterEntity.setWeight(characterDTO.getWeight());
 
-
-        if (characterDTO.getMovies() != null) {
-            characterEntity.setMovies(movieMapper.movieDTOList2EntityList(characterDTO.getMovies(), false));
-        }
-
-
         CharacterEntity updatedCharacter = characterRepository.save(characterEntity);
 
-        CharacterDTO updatedCharacterDTO = characterMapper.characterEntity2DTO(updatedCharacter, false);
+        CharacterDTO updatedCharacterDTO = characterMapper.characterEntity2DTO(updatedCharacter, true);
 
         return updatedCharacterDTO;
     }

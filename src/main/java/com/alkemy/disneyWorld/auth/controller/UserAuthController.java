@@ -3,7 +3,7 @@ package com.alkemy.disneyWorld.auth.controller;
 import com.alkemy.disneyWorld.auth.dto.AuthenticationRequest;
 import com.alkemy.disneyWorld.auth.dto.AuthenticationResponse;
 import com.alkemy.disneyWorld.auth.dto.UserDTO;
-import com.alkemy.disneyWorld.auth.service.SignInService;
+import com.alkemy.disneyWorld.auth.service.LoginService;
 import com.alkemy.disneyWorld.auth.service.UserDetailsCustomService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -23,18 +23,18 @@ public class UserAuthController {
     private UserDetailsCustomService userDetailCustomService;
 
     @Autowired
-    private SignInService signInService;
+    private LoginService loginService;
 
-    @PostMapping("/signup")
+    @PostMapping("/register")
     public ResponseEntity<AuthenticationResponse> signUp(@Valid @RequestBody UserDTO user) throws Exception {
         userDetailCustomService.save(user);
         return ResponseEntity.status(HttpStatus.CREATED).build();
     }
 
-    @PostMapping("signin")
-    public ResponseEntity<AuthenticationResponse> signIn(@RequestBody AuthenticationRequest authRequest) throws Exception {
+    @PostMapping("/login")
+    public ResponseEntity<AuthenticationResponse> login(@RequestBody AuthenticationRequest authRequest) throws Exception {
 
-        final String jwt =  signInService.userSignIn(authRequest);
+        final String jwt =  loginService.userLogin(authRequest);
 
         return ResponseEntity.ok(new AuthenticationResponse(jwt));
     }

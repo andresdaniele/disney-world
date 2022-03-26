@@ -79,7 +79,7 @@
 						"header": [
 							{
 								"key": "Authorization",
-								"value": "Bearer eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJhbmRyZXNtZGFuaWVsZUBnbWFpbC5jb20iLCJleHAiOjE2NDgyNzUwODQsImlhdCI6MTY0ODIzOTA4NH0.bfo9S8SOZPvyiCnNUnv_vRFgrrqG5hutWZ3a085b0OI",
+								"value": "Bearer ",
 								"type": "text"
 							}
 						],
@@ -490,7 +490,7 @@
 						"header": [
 							{
 								"key": "Authorization",
-								"value": "Bearer eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJhbmRyZXNtZGFuaWVsZUBnbWFpbC5jb20iLCJleHAiOjE2NDgyNzUwODQsImlhdCI6MTY0ODIzOTA4NH0.bfo9S8SOZPvyiCnNUnv_vRFgrrqG5hutWZ3a085b0OI",
+								"value": "Bearer ",
 								"type": "text"
 							}
 						],
@@ -601,7 +601,7 @@
 			"name": "auth endpoints",
 			"item": [
 				{
-					"name": "auth/signup",
+					"name": "/auth/register",
 					"request": {
 						"method": "POST",
 						"header": [],
@@ -615,7 +615,7 @@
 							}
 						},
 						"url": {
-							"raw": "http://localhost:8080/auth/signup",
+							"raw": "http://localhost:8080/auth/register",
 							"protocol": "http",
 							"host": [
 								"localhost"
@@ -623,7 +623,7 @@
 							"port": "8080",
 							"path": [
 								"auth",
-								"signup"
+								"register"
 							]
 						},
 						"description": "Create an account that provides the user a JWT that allows it to makes request about movies, characters, etc. Also send a welcome email to the new user through SendGrid."
@@ -631,7 +631,7 @@
 					"response": []
 				},
 				{
-					"name": "/auth/signin",
+					"name": "/auth/login",
 					"request": {
 						"method": "POST",
 						"header": [],
@@ -645,7 +645,7 @@
 							}
 						},
 						"url": {
-							"raw": "http://localhost:8080/auth/signin",
+							"raw": "http://localhost:8080/auth/login",
 							"protocol": "http",
 							"host": [
 								"localhost"
@@ -653,14 +653,14 @@
 							"port": "8080",
 							"path": [
 								"auth",
-								"signin"
+								"login"
 							]
 						}
 					},
 					"response": []
 				}
 			],
-			"description": "Sing up and log in endpoints. Provides the user a token to make requests over all the previous endpoints."
+			"description": "Register and login endpoints. Provides the user a token to make requests over all the previous endpoints."
 		}
 	]
 }

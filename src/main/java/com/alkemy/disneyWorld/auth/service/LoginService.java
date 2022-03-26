@@ -10,14 +10,14 @@ import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.stereotype.Service;
 
 @Service
-public class SignInService {
+public class LoginService {
 
     @Autowired
     private AuthenticationManager authenticationManager;
     @Autowired
     private JwtUtils jwtTokenUtil;
 
-    public String userSignIn (AuthenticationRequest authRequest) throws Exception {
+    public String userLogin(AuthenticationRequest authRequest) throws Exception {
 
         UserDetails userDetails;
 

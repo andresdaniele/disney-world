@@ -88,7 +88,7 @@ public class MovieServiceImpl implements MovieService {
         return movieDTO;
     }
 
-    ////Receives character id and DTO with new movie's values and persist it on DB. Check if its characters and genre where changed and returns the new character DTO.
+    //Receives character id and DTO with new movie's values and persist it on DB.
     @Override
     public MovieDTO updateMovie(Long id, MovieDTO movieDTO) {
         MovieEntity movieEntity = getMovieById(id);
@@ -97,16 +97,6 @@ public class MovieServiceImpl implements MovieService {
         movieEntity.setRating(movieDTO.getRating());
         movieEntity.setImage(movieDTO.getImage());
         movieEntity.setCreationDate(movieMapper.string2LocalDate(movieDTO.getCreationDate()));
-
-        if(movieDTO.getCharacters() != null) {
-            movieEntity.setCharacters(characterMapper.characterDTOList2EntityList(movieDTO.getCharacters(), false));
-        }
-
-        if(movieDTO.getGenre() != null) {
-            GenreEntity genreEntity = genreMapper.genreDTO2Entity(movieDTO.getGenre(), false);
-            movieEntity.setGenre(genreEntity);
-        }
-
 
         MovieEntity updatedMovie = movieRepository.save(movieEntity);
 
