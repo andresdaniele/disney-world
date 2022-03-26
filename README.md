@@ -15,15 +15,16 @@
 ***
 
 ### Setup
-1- Clone this repository.
-2- Create a new DataBase called "disney-world" using MySQL Workbench o DBeaver.
-3- Check MySQL server password and username in application.properties file:
+
+1. Clone this repository.
+2. Create a new DataBase called "disney-world" using MySQL Workbench o DBeaver.
+3. Check MySQL server password and username in application.properties file:
     + `spring.datasource.username=root` 
     + `spring.datasource.password=root` 
-4- Create an account on SendGrid, get your API Key and setup enviroment varibles in your IDE.
-5- Change your SendGrid registerd email in application.properties file:
+4. Create an account on SendGrid, get your API Key and setup enviroment varibles in your IDE.
+5. Change your SendGrid registerd email in application.properties file:
     +`alkemy.disneyWorld.email.sender=email@email.com `
-6- Build and run the project on your IDE. Check if all entities have been added to the database.
+6. Build and run the project on your IDE. Check if all entities have been added to the database.
 
 #### Postman
 You can find a Postman Collection in the project or https://documenter.getpostman.com/view/19909814/UVyn1Hxq
