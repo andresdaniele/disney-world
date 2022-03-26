@@ -1,7 +1,7 @@
 # Disney World
 ## Alkemy pre-aceleracion challenge. Spring Boot API 
     
->This API was developed using REST pattern. . You can explore the Disney World through its movies, series, characters and genres.
+>This API was developed using REST pattern. You can explore the Disney World through its movies, series, characters and genres.
 
 
 ### You need:
