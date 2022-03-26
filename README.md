@@ -21,9 +21,9 @@
 3. Check MySQL server password and username in application.properties file:
     + `spring.datasource.username=root` 
     + `spring.datasource.password=root` 
-4. Create an account on SendGrid, get your API Key and setup enviroment varibles in your IDE.
-5. Change your SendGrid registerd email in application.properties file:
-    +`alkemy.disneyWorld.email.sender=email@email.com `
+4. Create an account on SendGrid, get your API Key and setup enviroment variables in your IDE.
+5. Change your SendGrid registered email in application.properties file:
+    `alkemy.disneyWorld.email.sender=email@email.com `
 6. Build and run the project on your IDE. Check if all entities have been added to the database.
 
 #### Postman
